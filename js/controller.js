@@ -4,6 +4,11 @@ var gElCanvas;
 var gCtx;
 var gLine = 0;
 
+var gLastY;
+var gLastX;
+var gLastText;
+var gLastLineSize;
+
 function onInit() {
     gElCanvas = document.getElementById('meme-canvas');
     gCtx = gElCanvas.getContext('2d');
@@ -30,11 +35,21 @@ function onOpenGenerator(imgId) {
     renderImg(currImg.id)
 }
 
-function clearCanvas() {
+function renderCanvas() {
     var meme = getGmeme()
     renderImg(meme.selectedImgId)
     for (var i = 0; i < meme.lines.length; i++) {
+        if (meme.lines[i].delete) {
+            meme.lines[i].delete = false;
+            continue;
+        }
         drawText(meme.lines[i].txt, meme.lines[i], i)
+
+        // if (meme.selectedLineIdx === i) {
+        //     outlineText(true, gLastX - gCtx.measureText(gLastText).width / 2, gLastY - gLastLineSize, gLastLineSize, gCtx.measureText(gLastText).width)
+        // } else {
+        //     outlineText(false)
+        // }
     }
 }
 
@@ -48,53 +63,109 @@ function updateTextLine(text) {
     meme.selectedLineIdx = gLine
     meme.lines[gLine].txt = text;
     var line = meme.lines[gLine]
-    clearCanvas()
+    renderCanvas()
     drawText(text, line)
+
 }
 
 
 function drawText(text, line, idx = gLine) {
     if (idx === 0) var y = 50
-    else y = 400;
+    else if (idx === 1) y = 400;
+    else y = 225;
+    if (line.align === 'center') var x = gElCanvas.width / 2
+    else if (line.align === 'right') x = gElCanvas.width - 5
+    else x = 5
     gCtx.lineWidth = '2';
     gCtx.font = `${line.size}px impact`;
-    gCtx.textAlign = 'center';
+    gCtx.textAlign = `${line.align}`;
     gCtx.strokeStyle = `${line.outline}`;
     gCtx.fillStyle = `${line.color}`;
-    gCtx.fillText(text, gElCanvas.width / 2, y);
-    gCtx.strokeText(text, gElCanvas.width / 2, y);
-    // outlineText(line.size)
+    gCtx.fillText(text, x, y);
+    gCtx.strokeText(text, x, y);
+    gLastY = y
+    gLastX = x
+    gLastText = text
+    gLastLineSize = line.size
+
 }
 
-function outlineText(height) {
+function deleteLine() {
+    var meme = getGmeme()
+    meme.lines[gLine].delete = true;
+    renderCanvas()
+    document.querySelector('.text-input').value = ''
+}
+
+function outlineText(isSelected, x, y, height, width) {
+    if (!isSelected) { return }
+    gCtx.rect(x, y, width, height);
     gCtx.beginPath();
-    gCtx.rect(0, 15, 450, height);
     gCtx.strokeStyle = 'black';
     gCtx.stroke();
-    // gCtx.fillRect(width, height);
-
 }
 
 function toggleLines() {
-    if (gLine === 0) {
-        gLine = 1;
-        var meme = getGmeme();
-        meme.lines.push(getNewLine());
-    } else gLine = 0;
+    var meme = getGmeme()
+    if (gLine === meme.lines.length - 1) {
+        gLine = 0
+    } else {
+        gLine++
+    }
+    document.querySelector('.text-input').value = ''
+    renderCanvas()
+        // if (gLine === 0) {
+        //     gLine = 1;
+        //     addLine()
+        //     document.querySelector('.text-input').value = ''
+        //     renderCanvas()
+        // } else {
+        //     document.querySelector('.text-input').value = ''
+        //     gLine = 0;
+        //     renderCanvas()
+        // }
+}
+
+function alignMemeText(direction) {
+    var meme = getGmeme()
+    meme.lines.forEach((line) => line.align = direction)
+    renderCanvas()
 }
 
 function getBiggerOrSmallerFont(size) {
     var meme = getGmeme();
     if (size === 'bigger') meme.lines[gLine].size += 10;
     else meme.lines[gLine].size -= 10;
-    clearCanvas();
-    // drawText(meme.lines[gLine].txt, meme.lines[gLine])
+    renderCanvas();
+}
+
+function addLine() {
+    var meme = getGmeme();
+    meme.lines.push(getNewLine());
+    gLine = meme.lines.length - 1;
+    document.querySelector('.text-input').value = ''
+    renderCanvas()
+}
+
+function changeColorFill() {
+    var color = document.getElementById('color-fill').value;
+    var meme = getGmeme()
+    meme.lines[gLine].color = color;
+    renderCanvas();
+}
+
+function changeColorOutline() {
+    var color = document.getElementById('color-outline').value;
+    var meme = getGmeme()
+    meme.lines[gLine].outline = color;
+    renderCanvas();
 }
 
 function backToGallary() {
     document.body.classList.remove('generator');
-    // var el = document.getElementById(id);
-    // el.scrollIntoView(true);
+    document.querySelector('.text-input').value = ''
+        // var el = document.getElementById(id);
+        // el.scrollIntoView(true);
 }
 
 function toggleNavBar() {

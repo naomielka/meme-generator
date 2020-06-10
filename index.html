@@ -54,23 +54,27 @@
                     <input class="text-input " type="text " oninput="updateTextLine(this.value) ">
                     <div class="button-container ">
                         <img onclick="toggleLines() " class="button-img " src="img/design/up-and-down-opposite-double-arrows-side-by-side.png " alt=" ">
-                        <img onclick=" " class="button-img " src="img/design/add.png " alt=" ">
-                        <img onclick=" " class="button-img " src="img/design/trash.png " alt=" ">
+                        <img onclick="addLine()" class="button-img " src="img/design/add.png " alt=" ">
+                        <img onclick=" deleteLine()" class="button-img " src="img/design/trash.png " alt=" ">
                     </div>
                     <div class="button-container ">
                         <img onclick="getBiggerOrSmallerFont( 'bigger') " class="button-img " src="img/design/increase font - icon.png " alt=" ">
                         <img onclick="getBiggerOrSmallerFont( 'smaller') " class="button-img " src="img/design/decrease font - icon.png " alt=" ">
-                        <img onclick=" " class="button-img " src="img/design/align-to-left.png " alt=" ">
-                        <img onclick=" " class="button-img " src="img/design/center-text-alignment.png " alt=" ">
-                        <img onclick=" " class="button-img " src="img/design/align-to-right.png " alt=" ">
+                        <img onclick="alignMemeText('left') " class="button-img " src="img/design/align-to-left.png " alt=" ">
+                        <img onclick="alignMemeText('center') " class="button-img " src="img/design/center-text-alignment.png " alt=" ">
+                        <img onclick="alignMemeText('right') " class="button-img " src="img/design/align-to-right.png " alt=" ">
                     </div>
                     <div class="button-container ">
 
                         <select name="" id="">
                             <option value="">fonts</option>
                         </select>
-                        <img onclick=" " class="button-img " src="img/design/text stroke.png " alt=" ">
-                        <img onclick=" " class="button-img " src="img/design/paint-board-and-brush.png " alt=" ">
+                        <!-- <img onclick=" " class="button-img " src="img/design/text stroke.png " alt=" ">
+                        <img onclick=" " class="button-img " src="img/design/paint-board-and-brush.png " alt=" "> -->
+                        <input id="color-outline" type="color">
+                        <img onclick="changeColorOutline()" class="button-img " src="img/design/text stroke.png " alt=" ">
+                        <input id="color-fill" type="color">
+                        <img onclick="changeColorFill()" class="button-img " src="img/design/paint-board-and-brush.png " alt=" ">
                     </div>
                 </div>
             </div>
