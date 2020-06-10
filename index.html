@@ -22,11 +22,13 @@
             <button class="open-nav-button" onclick="toggleNavBar()">☰</button>
         </div>
     </header>
-    <section class="seacrh-container ">
+    <section class="seacrh-container container ">
         <div class="search-bar container ">
-            <form action=" ">
-                <input type="search " placeholder="Enter search keyword " class="search-input ">
-            </form>
+            <div class="searcher-container">
+                <input class="searcher" type="search " placeholder="Enter search keyword " class="search-input ">
+                <img style="height: 20px;" src=img/design/search-icon.png alt="">
+
+            </div>
             <span>sorters</span>
         </div>
     </section>
@@ -48,18 +50,26 @@
                 <canvas id="meme-canvas"></canvas>
             </div>
             <div class="user-inputs ">
-                <input class="text-input " type="text " oninput="updateTextLine(this.value) ">
                 <div class="buttons ">
+                    <input class="text-input " type="text " oninput="updateTextLine(this.value) ">
                     <div class="button-container ">
                         <img onclick="toggleLines() " class="button-img " src="img/design/up-and-down-opposite-double-arrows-side-by-side.png " alt=" ">
                         <img onclick=" " class="button-img " src="img/design/add.png " alt=" ">
                         <img onclick=" " class="button-img " src="img/design/trash.png " alt=" ">
                     </div>
                     <div class="button-container ">
-                        <img onclick=" " class="button-img " src="img/design/align-to-left.png " alt=" ">
-                        <img onclick=" " class="button-img " src="img/design/align-to-right.png " alt=" ">
                         <img onclick="getBiggerOrSmallerFont( 'bigger') " class="button-img " src="img/design/increase font - icon.png " alt=" ">
                         <img onclick="getBiggerOrSmallerFont( 'smaller') " class="button-img " src="img/design/decrease font - icon.png " alt=" ">
+                        <img onclick=" " class="button-img " src="img/design/align-to-left.png " alt=" ">
+                        <img onclick=" " class="button-img " src="img/design/center-text-alignment.png " alt=" ">
+                        <img onclick=" " class="button-img " src="img/design/align-to-right.png " alt=" ">
+                    </div>
+                    <div class="button-container ">
+
+                        <select name="" id="">
+                            <option value="">fonts</option>
+                        </select>
+                        <img onclick=" " class="button-img " src="img/design/text stroke.png " alt=" ">
                         <img onclick=" " class="button-img " src="img/design/paint-board-and-brush.png " alt=" ">
                     </div>
                 </div>
@@ -69,7 +79,7 @@
     <footer>
         <section class="copyrights ">
             <img class="logo " src="img/LOGO.png " alt=" ">
-            <h4>all rights reserved 2019</h4>
+            <h4>all rights reserved 2020</h4>
         </section>
     </footer>
 

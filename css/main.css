@@ -2,7 +2,12 @@
 
 @font-face {
     font-family: monts;
-    src: url(/fonts/Montserrat/Montserrat-Regular.ttf);
+    src: url(fonts/Montserrat/Montserrat-Regular.ttf);
+}
+
+@font-face {
+    font-family: monts-thin;
+    src: url(fonts/Montserrat/Montserrat-Thin.ttf);
 }
 
 
@@ -41,7 +46,6 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 0 auto;
     padding: 5px;
     justify-content: space-between;
 }
@@ -66,7 +70,8 @@ header {
     align-items: center;
 }
 
-.nav-bar li:not(:last-of-type) {}
+
+/* .nav-bar li:not(:last-of-type) {} */
 
 .nav-bar li:hover {
     cursor: pointer;
@@ -93,6 +98,7 @@ header {
 .seacrh-container {
     width: 100%;
     background-color: #ffffff;
+    padding: 5px;
 }
 
 .generator .seacrh-container {
@@ -104,6 +110,17 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+}
+
+.searcher {
+    height: 20px;
+    border: none;
+    outline: none;
+}
+
+.searcher-container {
+    border-bottom: 2px solid black;
 }
 
 
@@ -118,8 +135,8 @@ main {
     margin: 0 auto;
     display: grid;
     height: 100%;
-    grid-template-columns: repeat(3, minmax(200px, 1fr));
-    grid-auto-rows: 200px;
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+    grid-auto-rows: 250px;
     gap: 20px
 }
 
@@ -155,17 +172,19 @@ main {
     visibility: visible;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .user-inputs {
     display: flex;
     flex-direction: column;
+    margin-left: 100px;
 }
 
 .buttons {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .button-container {
@@ -185,6 +204,14 @@ main {
 
 .button-img:hover {
     cursor: pointer;
+}
+
+.user-inputs input {
+    border: none;
+    border-radius: 12px;
+    width: 350px;
+    height: 60px;
+    font-size: 2rem;
 }
 
 
@@ -220,6 +247,11 @@ main {
     margin-right: 40px;
 }
 
+.about-me h3 {
+    font-weight: 700;
+    /* font-style: bold; */
+}
+
 
 /* FOOTER  */
 
@@ -239,11 +271,17 @@ footer {
     align-items: center;
 }
 
+.copyrights h4 {
+    font-family: monts-thin;
+    color: white;
+}
+
 
 /* HELPERS  */
 
 .container {
     max-width: 1100px;
+    margin: 0 auto;
 }
 
 .clean-list {
@@ -263,22 +301,56 @@ footer {
         /* height: 60px; */
         display: flex;
         flex-direction: row;
-        /* align-items: flex-start; */
         margin: 0 auto;
-        padding: 5px;
+        padding: 10px;
         justify-content: space-between;
     }
     .nav-bar ul {
         flex-direction: column;
         display: none;
+        width: 100vw;
+        background-color: #ff7f00;
+        transform: translateY(-100%);
+        transition: transform .8s;
     }
     .nav-bar li {
+        justify-content: start;
         height: 100%;
+        width: 100%;
+        margin: 0;
     }
     .open-nav-button {
         display: block;
     }
     .nav-toggle .nav-bar ul {
         display: flex;
+        position: absolute;
+        align-items: flex-start;
+        left: 0;
+        top: 50px;
+        transform: translateY(0%);
+        transition: transform .8s;
     }
+    .meme-generator {
+        max-width: 700px;
+    }
+    .generator .meme-generator {
+        flex-direction: column;
+        align-items: center;
+    }
+    .user-inputs {
+        margin-left: 0px;
+    }
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    border-radius: 12px;
+    width: 350px;
+    height: 60px;
+    font-size: 2rem;
+}
+
+
 }
