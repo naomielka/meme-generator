@@ -13,63 +13,71 @@
     <header>
         <div class="head container">
             <img class="logo" src="img/LOGO.png" alt="">
-            <nav class="nav-bar"></nav>
+            <nav class="nav-bar">
+                <ul class="clean-list">
+                    <li onclick="backToGallary()">Gallary </li>
+                    <li onclick="backToGallary()">About</li>
+                </ul>
+            </nav>
+            <button class="open-nav-button" onclick="toggleNavBar()">☰</button>
         </div>
     </header>
-    <section class="seacrh-container">
-        <div class="search-bar container">
-            <form action="">
-                <input type="search" placeholder="Enter search keyword" class="search-input">
+    <section class="seacrh-container ">
+        <div class="search-bar container ">
+            <form action=" ">
+                <input type="search " placeholder="Enter search keyword " class="search-input ">
             </form>
             <span>sorters</span>
         </div>
     </section>
 
     <main>
-        <section class="img-grid container">
+        <section class="img-grid container" id="gallary">
         </section>
-        <section class="about-me">
-            <div class="about-me-container">
-                <img class="about-me-img" src="img/about-me.jpg" alt="picture of me">
-                <div class="about-me-text">
+        <section class="about-me" id="about">
+            <div class="about-me-container ">
+                <img class="about-me-img " src="img/about-me.jpg " alt="picture of me ">
+                <div class="about-me-text ">
                     <h3>Naomi Elkayam</h3>
                     <p>is a fictional character, one of the six main characters who appears on the American sitcom Friends (1994–2004). Created by David Crane and Marta Kauffman</p>
                 </div>
             </div>
         </section>
-        <div class="meme-generator">
-            <div class="canvas-container">
+        <div class="meme-generator ">
+            <div class="canvas-container ">
                 <canvas id="meme-canvas"></canvas>
             </div>
-            <div class="user-inputs">
-                <input class="text-input" type="text" oninput="updateTextLine(this.value)">
-                <div class="buttons">
-                    <div class="button-container">
-                        <img onclick="toggleLines()" class="button-img" src="img/design/up-and-down-opposite-double-arrows-side-by-side.png" alt="">
-                        <img onclick="" class="button-img" src="img/design/add.png" alt="">
-                        <img onclick="" class="button-img" src="img/design/trash.png" alt="">
+            <div class="user-inputs ">
+                <input class="text-input " type="text " oninput="updateTextLine(this.value) ">
+                <div class="buttons ">
+                    <div class="button-container ">
+                        <img onclick="toggleLines() " class="button-img " src="img/design/up-and-down-opposite-double-arrows-side-by-side.png " alt=" ">
+                        <img onclick=" " class="button-img " src="img/design/add.png " alt=" ">
+                        <img onclick=" " class="button-img " src="img/design/trash.png " alt=" ">
                     </div>
-                    <img onclick="" class="button-img" src="img/design/align-to-left.png" alt="">
-                    <img onclick="" class="button-img" src="img/design/align-to-right.png" alt="">
-                    <img onclick="" class="button-img" src="img/design/increase font - icon.png" alt="">
-                    <img onclick="" class="button-img" src="img/design/decrease font - icon.png" alt="">
-                    <img onclick="" class="button-img" src="img/design/paint-board-and-brush.png" alt="">
+                    <div class="button-container ">
+                        <img onclick=" " class="button-img " src="img/design/align-to-left.png " alt=" ">
+                        <img onclick=" " class="button-img " src="img/design/align-to-right.png " alt=" ">
+                        <img onclick="getBiggerOrSmallerFont( 'bigger') " class="button-img " src="img/design/increase font - icon.png " alt=" ">
+                        <img onclick="getBiggerOrSmallerFont( 'smaller') " class="button-img " src="img/design/decrease font - icon.png " alt=" ">
+                        <img onclick=" " class="button-img " src="img/design/paint-board-and-brush.png " alt=" ">
+                    </div>
                 </div>
             </div>
         </div>
     </main>
     <footer>
-        <section class="copyrights">
-            <img class="logo" src="img/LOGO.png" alt="">
+        <section class="copyrights ">
+            <img class="logo " src="img/LOGO.png " alt=" ">
             <h4>all rights reserved 2019</h4>
         </section>
     </footer>
 
 
 
-    <script src="js/utils.js"></script>
-    <script src="js/controller.js"></script>
-    <script src="js/service.js"></script>
+    <script src="js/utils.js "></script>
+    <script src="js/controller.js "></script>
+    <script src="js/service.js "></script>
 </body>
 
 </html>

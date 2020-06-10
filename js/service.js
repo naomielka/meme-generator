@@ -52,7 +52,7 @@ function createCurrMeme(currImg) {
     var meme = {
         selectedImgId: currImg.id,
         selectedLineIdx: 0,
-        lines: [{ txt: '', size: 20, align: 'left', color: 'white', outline: 'black' }]
+        lines: [{ txt: '', size: 40, align: 'left', color: 'white', outline: 'black' }]
     }
     return meme;
 }
