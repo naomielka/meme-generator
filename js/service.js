@@ -8,7 +8,7 @@ var gImgs = createImgs();
 var gMeme = {
     selectedImgId: 5,
     selectedLineIdx: 0,
-    lines: [{ txt: 'I never eat Falafel', size: 20, align: 'left', color: 'red' }]
+    lines: [{ txt: 'I never eat Falafel', size: 20, align: 'left', color: 'red', }]
 }
 
 function createImgs() {
@@ -52,13 +52,13 @@ function createCurrMeme(currImg) {
     var meme = {
         selectedImgId: currImg.id,
         selectedLineIdx: 0,
-        lines: [{ txt: '', size: 40, align: 'center', color: 'white', outline: 'black', delete: false },
-            { txt: '', size: 40, align: 'center', color: 'white', outline: 'black', delete: false }
+        lines: [{ txt: '', size: 40, align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true },
+            { txt: '', size: 40, align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true }
         ]
     }
     return meme;
 }
 
 function getNewLine() {
-    return { txt: '', size: 40, align: 'center', color: 'white', outline: 'black', delete: false }
+    return { txt: '', size: 40, align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true }
 }
