@@ -49,10 +49,25 @@ function renderCanvas(height = 0) {
     }
 }
 
+function findTextCords(text, y) {
+    var meme = getGmeme()
+    var width = gCtx.measureText(text).width + 10
+    var height = gCtx.measureText('M').width + 15
+    if (meme.lines[gLine].align === 'center') var x = gElCanvas.width / 2 + width / 2
+    else if (meme.lines[gLine].align === 'right') x = gElCanvas.width - 5
+    else x = 5
+    var y = y - height + 5
+    var cords = { width: width, height: height, y: y, x: x }
+    return cords;
+}
+
 function markText(text, y) {
+    // var meme = getGmeme()
     // var width = gCtx.measureText(text).width + 10
     var height = gCtx.measureText('M').width + 15
-        // var x = gElCanvas.width / 2 - width / 2
+        // if (meme.lines[gLine].align === 'center') var x = gElCanvas.width / 2
+        // else if (meme.lines[gLine].align === 'right') x = gElCanvas.width - 5
+        // else x = 5
     var y = y - height + 5
     gCtx.beginPath();
     // gCtx.rect(x, y,width , height);
@@ -61,6 +76,7 @@ function markText(text, y) {
     // gCtx.stroke();
     gCtx.fillStyle = "rgba(255, 255, 255, 0.5)";
     gCtx.fillRect(0, y, gElCanvas.width, height);
+    return
 }
 
 function renderImg(id) {
@@ -81,7 +97,6 @@ function updateTextLine(text) {
 
 function drawText(text, line, idx = gLine, height = 0) {
     if (line.isNew) {
-        console.log('ch')
         if (idx === 0) line.y = 50;
         else if (idx === 1) line.y = gElCanvas.width - 50;
         else line.y = gElCanvas.width / 2;
@@ -158,7 +173,6 @@ function changeColorOutline() {
 }
 
 function moveUpOrDown(direction, ev) {
-    ev.preventDefult()
     var meme = getGmeme();
     if (direction === 'up') {
         drawText(meme.lines[gLine].txt, meme.lines[gLine], gLine, -10)
@@ -170,8 +184,23 @@ function moveUpOrDown(direction, ev) {
     }
 }
 
-function editText() {
-
+function editText(ev) {
+    const { offsetX, offsetY } = ev;
+    var meme = getGmeme()
+    for (var i = 0; i < meme.lines.length; i++) {
+        var text = meme.lines[i].txt
+        var y = meme.lines[i].y
+        var cords = findTextCords(text, y)
+        console.log(cords)
+        console.log(offsetX, offsetY)
+        if (offsetX <= cords.x && offsetX >= cords.width && offsetY >= cords.y && offsetY <= cords.height) {
+            document.getElementById("meme-text").focus();
+            gLine = i;
+            meme.selectedLineIdx = i;
+            document.querySelector('.text-input').value = ''
+            renderCanvas()
+        }
+    }
 }
 
 function changeFont(font) {
@@ -190,7 +219,6 @@ function backToGallary() {
 function resizeCanvas() {
     var elContainer = document.querySelector('.canvas-container');
     gElCanvas.width = elContainer.offsetWidth;
-    console.log(elContainer.offsetWidth)
     gElCanvas.height = elContainer.offsetHeight;
 }
 

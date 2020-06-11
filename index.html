@@ -17,6 +17,7 @@
                 <ul class="clean-list">
                     <li onclick="backToGallary()">Gallary </li>
                     <li onclick="backToGallary()">About</li>
+                    <li onclick="goToMemes()">Memes</li>
                 </ul>
             </nav>
             <button class="open-nav-button" onclick="toggleNavBar()">☰</button>
@@ -51,7 +52,7 @@
             </div>
             <div class="user-inputs ">
                 <div class="buttons ">
-                    <input class="text-input " type="text " oninput="updateTextLine(this.value) ">
+                    <input class="text-input " id="meme-text" type="text " oninput="updateTextLine(this.value) ">
                     <div class="button-container ">
                         <img onclick="moveUpOrDown('up', event)" class="button-img " src="img/design/up-arrow.png " alt=" ">
                         <img onclick="moveUpOrDown('down', event)" class="button-img " src="img/design/down-arrow.png " alt=" ">
