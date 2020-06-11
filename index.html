@@ -26,11 +26,12 @@
     <section class="seacrh-container container ">
         <div class="search-bar container ">
             <div class="searcher-container">
-                <input class="searcher" type="search " placeholder="Enter search keyword " class="search-input ">
-                <img style="height: 20px;" src=img/design/search-icon.png alt="">
+                <input onkeypress="search(event)" id="searcher" class="searcher" type="search " placeholder="Enter search keyword " class="search-input ">
+                <img onclick="searchKeyWord()" src=img/design/search-icon.png alt="">
 
             </div>
-            <span>sorters</span>
+            <div class="sorters">
+            </div>
         </div>
     </section>
 

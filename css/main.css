@@ -124,6 +124,14 @@ header {
     border-bottom: 2px solid black;
 }
 
+.searcher-container img {
+    height: 20px;
+}
+
+.searcher-container img:hover {
+    cursor: pointer;
+}
+
 
 /* MAIN */
 

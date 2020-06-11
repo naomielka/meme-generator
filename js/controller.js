@@ -11,6 +11,9 @@ function onInit() {
     // gElCanvas.width = 450;
     // gElCanvas.height = 450;
     renderImgs()
+    createKeywordsMap()
+    saveToStorage('popularSearches', gPopularSearches);
+    renderSorters()
 }
 
 function renderImgs() {
@@ -191,12 +194,9 @@ function editText(ev) {
         var text = meme.lines[i].txt
         var y = meme.lines[i].y
         var cords = findTextCords(text, y)
-        console.log(cords, i)
-        console.log(offsetX, offsetY)
         if (meme.lines[i].align === 'left') {
             if (offsetX >= cords.x && offsetX <= cords.x + cords.width && offsetY >= cords.y && offsetY <= cords.y + cords.height) {
                 document.getElementById("meme-text").focus();
-                console.log(i)
                 gLine = i;
                 meme.selectedLineIdx = i;
                 document.querySelector('.text-input').value = ''
@@ -205,7 +205,6 @@ function editText(ev) {
         } else {
             if (offsetX <= cords.x && offsetX >= cords.width && offsetY >= cords.y && offsetY <= cords.y + cords.height) {
                 document.getElementById("meme-text").focus();
-                console.log(i)
                 gLine = i;
                 meme.selectedLineIdx = i;
                 document.querySelector('.text-input').value = ''
@@ -225,6 +224,7 @@ function backToGallary() {
     document.body.classList.remove('generator');
     document.body.classList.remove('meme-gallary');
     document.querySelector('.text-input').value = ''
+    renderImgs()
         // var el = document.getElementById(id);
         // el.scrollIntoView(true);
 }
@@ -300,4 +300,62 @@ function doUploadImg(elForm, onSuccess) {
 function openMemes() {
     document.body.classList.add('meme-gallary');
     renderMemes()
+}
+
+function searchKeyWord() {
+    var usersKey = document.getElementById('searcher').value;
+    var KeywordsMap = getKeywordsMap()
+    if (!KeywordsMap[usersKey]) {
+        strHtml = 'No images found! Try differnt keyword.'
+    } else {
+        KeywordsMap[usersKey]++;
+        if (KeywordsMap[usersKey] >= 3) {
+            addToPopularSearches(usersKey, KeywordsMap[usersKey]);
+            renderSorters(usersKey)
+
+        }
+        var strHtml = ''
+        var imgs = getImgs()
+        imgs.map(function(img) {
+            var imgKeywords = img.keywords;
+            imgKeywords.map(function(keyword) {
+                if (keyword === usersKey) {
+                    strHtml += `<img onclick="onOpenGenerator(${img.id})" class="img" id="${img.id}" src="${img.url}" alt="${img.keywords}">`
+                }
+            })
+        })
+    }
+    var elContainer = document.querySelector('.img-grid')
+    elContainer.innerHTML = strHtml;
+    renderSorters(usersKey)
+}
+
+function search(ev) {
+    if (ev.keyCode == 13) searchKeyWord();
+}
+
+function renderSorters(key) {
+    var sorters = loadFromStorage('popularSearches')
+    var strHtml = ''
+    var elSorters = document.querySelector('.sorters')
+    sorters.map(function(sorter) {
+        var objKey = JSON.stringify(Object.keys(sorter))
+            // if (objKey === key) {
+            //     strHtml += `<button class="sorter" style="font-size: 10+${sorter.objKey}px" onclick="searchKeyWord(this.value)">${sorter}</button>`
+            // }
+        strHtml += `<button class="sorter" style="font-size: 10+${sorter[objKey]}px" onclick="searchKeyWord(this.value)">${key}</button>`
+    })
+    elSorters.innerHTML = strHtml;
+
+
+    // var keywordsMap = getKeywordsMap()
+    // var keywords = Object.keys(keywordsMap)
+    // var elSorters = document.querySelector('.sorters')
+    // var strHtml = ''
+    // keywords.map(function(key) {
+    //     if (keywordsMap[key] > 3) {
+    //         strHtml += `<button class="sorter" onclick="searchKeyWord(this.value)">${key}</button>`
+    //     }
+    // })
+    // elSorters.innerHTML = strHtml;
 }
