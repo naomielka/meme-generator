@@ -187,3 +187,9 @@ function resizeCanvas() {
 function toggleNavBar() {
     document.body.classList.toggle('nav-toggle');
 }
+
+function downloadMeme(elLink) {
+    const data = gElCanvas.toDataURL()
+    elLink.href = data
+    elLink.download = 'new-meme.jpg'
+}

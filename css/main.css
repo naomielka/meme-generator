@@ -213,13 +213,47 @@ main {
     cursor: pointer;
 }
 
-.user-inputs>input {
+.buttons>input {
     border: none;
     border-radius: 12px;
     width: 350px;
     height: 60px;
     font-size: 2rem;
 }
+
+.buttons a {
+    text-decoration: none;
+    color: white;
+    width: 120px;
+    height: 60px;
+    border-radius: 12px;
+    background-color: #5eb1f5;
+    font-weight: 500;
+    padding-top: 18px;
+    text-align: center;
+}
+
+
+/* 
+.color-inputs input {
+    border: none;
+    color: white;
+} */
+
+
+/* 
+.check {
+    background-image: url('../img/design/paint-board-and-brush.png');
+    background-color: #cccccc;
+    height: 60px;
+    width: 60px;
+} */
+
+
+/* 
+#color-fill {
+    background-image: url('/img/design/paint-board-and-brush.png');
+} */
 
 
 /* ABOUT ME  */
@@ -376,5 +410,16 @@ footer {
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+    .about-me-img {
+        height: 150px;
+        width: 150px;
+    }
+    .about-me {
+        height: 200px;
+        margin-bottom: 100px;
+    }
+    .about-me-container {
+        height: 200px;
     }
 }
