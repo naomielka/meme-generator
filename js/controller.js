@@ -69,6 +69,7 @@ function renderImg(id) {
 }
 
 function updateTextLine(text) {
+    text = text.toUpperCase()
     var meme = getGmeme()
     meme.selectedLineIdx = gLine
     meme.lines[gLine].txt = text;
@@ -91,7 +92,7 @@ function drawText(text, line, idx = gLine, height = 0) {
     else if (line.align === 'right') x = gElCanvas.width - 5
     else x = 5
     gCtx.lineWidth = '2';
-    gCtx.font = `${line.size}px impact`;
+    gCtx.font = `${line.size}px ${line.font}`;
     gCtx.textAlign = `${line.align}`;
     gCtx.strokeStyle = `${line.outline}`;
     gCtx.fillStyle = `${line.color}`;
@@ -156,7 +157,8 @@ function changeColorOutline() {
     renderCanvas();
 }
 
-function moveUpOrDown(direction) {
+function moveUpOrDown(direction, ev) {
+    ev.preventDefult()
     var meme = getGmeme();
     if (direction === 'up') {
         drawText(meme.lines[gLine].txt, meme.lines[gLine], gLine, -10)
@@ -166,7 +168,16 @@ function moveUpOrDown(direction) {
         renderCanvas(10)
 
     }
+}
 
+function editText() {
+
+}
+
+function changeFont(font) {
+    var meme = getGmeme()
+    meme.lines[gLine].font = font;
+    renderCanvas();
 }
 
 function backToGallary() {

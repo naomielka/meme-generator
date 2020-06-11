@@ -52,13 +52,13 @@ function createCurrMeme(currImg) {
     var meme = {
         selectedImgId: currImg.id,
         selectedLineIdx: 0,
-        lines: [{ txt: '', size: 40, align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true },
-            { txt: '', size: 40, align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true }
+        lines: [{ txt: '', size: 40, font: 'impact', align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true },
+            { txt: '', size: 40, font: 'impact', align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true }
         ]
     }
     return meme;
 }
 
 function getNewLine() {
-    return { txt: '', size: 40, align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true }
+    return { txt: '', size: 40, font: 'impact', align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true }
 }

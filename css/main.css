@@ -221,6 +221,16 @@ main {
     font-size: 2rem;
 }
 
+#font-select {
+    border: none;
+    border-radius: 12px;
+    width: 150px;
+    height: 60px;
+    font-size: 1.3rem;
+    padding-left: 35px;
+    margin: 0 10px;
+}
+
 .buttons a {
     text-decoration: none;
     color: white;

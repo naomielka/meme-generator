@@ -47,14 +47,14 @@
         </section>
         <div class="meme-generator ">
             <div class="canvas-container ">
-                <canvas id="meme-canvas"></canvas>
+                <canvas id="meme-canvas" onclick="editText(event)"></canvas>
             </div>
             <div class="user-inputs ">
                 <div class="buttons ">
                     <input class="text-input " type="text " oninput="updateTextLine(this.value) ">
                     <div class="button-container ">
-                        <img onclick="moveUpOrDown('up')" class="button-img " src="img/design/up-arrow.png " alt=" ">
-                        <img onclick="moveUpOrDown('down')" class="button-img " src="img/design/down-arrow.png " alt=" ">
+                        <img onclick="moveUpOrDown('up', event)" class="button-img " src="img/design/up-arrow.png " alt=" ">
+                        <img onclick="moveUpOrDown('down', event)" class="button-img " src="img/design/down-arrow.png " alt=" ">
                         <img onclick="toggleLines() " class="button-img " src="img/design/up-and-down-opposite-double-arrows-side-by-side.png " alt=" ">
                         <img onclick="addLine()" class="button-img " src="img/design/add.png " alt=" ">
                         <img onclick=" deleteLine()" class="button-img " src="img/design/trash.png " alt=" ">
@@ -67,8 +67,10 @@
                         <img onclick="alignMemeText('right') " class="button-img " src="img/design/align-to-right.png " alt=" ">
                     </div>
                     <div class="button-container color-inputs">
-                        <select name="" id="">
-                            <option value="">fonts</option>
+                        <select name="" id="font-select" onchange="changeFont(this.value)">
+                            <option value="impact">Impact</option>
+                            <option value="ariel">Ariel</option>
+                            <option value="tahoma">Tahoma</option>
                         </select>
                         <!-- <img onclick=" " class="button-img " src="img/design/text stroke.png " alt=" ">
                         <img onclick=" " class="button-img " src="img/design/paint-board-and-brush.png " alt=" "> -->
