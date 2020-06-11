@@ -11,6 +11,8 @@ var gMeme = {
     lines: [{ txt: 'I never eat Falafel', size: 20, align: 'left', color: 'red', }]
 }
 
+var gMemes = []
+
 function createImgs() {
     var imgs = [];
     for (var i = 0; i < 18; i++) {
@@ -61,4 +63,9 @@ function createCurrMeme(currImg) {
 
 function getNewLine() {
     return { txt: '', size: 40, font: 'impact', align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true }
+}
+
+function saveMeme(data) {
+    gMemes.push(data);
+    saveToStorage('memes', gMemes)
 }

@@ -17,7 +17,7 @@
                 <ul class="clean-list">
                     <li onclick="backToGallary()">Gallary </li>
                     <li onclick="backToGallary()">About</li>
-                    <li onclick="goToMemes()">Memes</li>
+                    <li onclick="openMemes()">Memes</li>
                 </ul>
             </nav>
             <button class="open-nav-button" onclick="toggleNavBar()">☰</button>
@@ -37,15 +37,10 @@
     <main>
         <section class="img-grid container" id="gallary">
         </section>
-        <section class="about-me" id="about">
-            <div class="about-me-container ">
-                <img class="about-me-img " src="img/about-me.jpg " alt="picture of me ">
-                <div class="about-me-text ">
-                    <h3>Naomi Elkayam</h3>
-                    <p>is a fictional character, one of the six main characters who appears on the American sitcom Friends (1994–2004). Created by David Crane and Marta Kauffman</p>
-                </div>
-            </div>
+        <section class="memes container">
+
         </section>
+
         <div class="meme-generator ">
             <div class="canvas-container ">
                 <canvas id="meme-canvas" onclick="editText(event)"></canvas>
@@ -81,12 +76,30 @@
                         <img onclick="changeColorFill()" class="button-img " src="img/design/paint-board-and-brush.png " alt=" ">
                     </div>
                     <div class="button-container ">
-                        <a href="#" onclick="downloadMeme(this)">Download</a>
+                        <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+                            <input name="img" id="imgData" type="hidden" />
+                            <button class="share-btn" type="submit">Share</button>
+                            <div class="share-container"></div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+    <section class="about-me" id="about">
+        <div class="about-me-container ">
+            <img class="about-me-img " src="img/about-me.jpg " alt="picture of me ">
+            <div class="about-me-text ">
+                <h3>Naomi Elkayam</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi ex ea placeat earum quisquam, voluptatibus cum vel aliquam sapiente nulla omnis ab aperiam illum optio accusantium eaque minus at! Accusamus.</p>
+                <div class="social-buttons">
+                    <a class="sociel-button" href="" target="_blank"><img src="img/design/linkedin-logo.png" alt=""></a>
+                    <a class="sociel-button" href="https://github.com/naomielka" target="_blank"><img src="img/design/github-logo.png" alt=""></a>
+                    <a class="sociel-button" href="https://www.facebook.com/naomi.elkayam/" target="_blank"><img src="img/design/facebook-logo.png" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </section>
     <footer>
         <!-- <div class="check">
 

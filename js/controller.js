@@ -191,14 +191,26 @@ function editText(ev) {
         var text = meme.lines[i].txt
         var y = meme.lines[i].y
         var cords = findTextCords(text, y)
-        console.log(cords)
+        console.log(cords, i)
         console.log(offsetX, offsetY)
-        if (offsetX <= cords.x && offsetX >= cords.width && offsetY >= cords.y && offsetY <= cords.height) {
-            document.getElementById("meme-text").focus();
-            gLine = i;
-            meme.selectedLineIdx = i;
-            document.querySelector('.text-input').value = ''
-            renderCanvas()
+        if (meme.lines[i].align === 'left') {
+            if (offsetX >= cords.x && offsetX <= cords.x + cords.width && offsetY >= cords.y && offsetY <= cords.y + cords.height) {
+                document.getElementById("meme-text").focus();
+                console.log(i)
+                gLine = i;
+                meme.selectedLineIdx = i;
+                document.querySelector('.text-input').value = ''
+                renderCanvas()
+            }
+        } else {
+            if (offsetX <= cords.x && offsetX >= cords.width && offsetY >= cords.y && offsetY <= cords.y + cords.height) {
+                document.getElementById("meme-text").focus();
+                console.log(i)
+                gLine = i;
+                meme.selectedLineIdx = i;
+                document.querySelector('.text-input').value = ''
+                renderCanvas()
+            }
         }
     }
 }
@@ -211,6 +223,7 @@ function changeFont(font) {
 
 function backToGallary() {
     document.body.classList.remove('generator');
+    document.body.classList.remove('meme-gallary');
     document.querySelector('.text-input').value = ''
         // var el = document.getElementById(id);
         // el.scrollIntoView(true);
@@ -231,4 +244,60 @@ function downloadMeme(elLink) {
     const data = gElCanvas.toDataURL()
     elLink.href = data
     elLink.download = 'new-meme.jpg'
+}
+
+function saveMemeToStorage() {
+    const data = gElCanvas.toDataURL()
+    saveMeme(data)
+
+}
+
+function renderMemes() {
+    var memes = loadFromStorage('memes');
+    var strHtml = ''
+    memes.map(function(meme) {
+        strHtml += `<img class="meme" src="${meme}">`
+    })
+    var elContainer = document.querySelector('.memes')
+    elContainer.innerHTML = strHtml;
+}
+
+function uploadImg(elForm, ev) {
+    ev.preventDefault();
+    document.getElementById('imgData').value = gElCanvas.toDataURL("image/jpeg");
+    document.querySelector('.share-btn').style.display = 'none'
+
+    // A function to be called if request succeeds
+    function onSuccess(uploadedImgUrl) {
+        uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        document.querySelector('.share-container').innerHTML = `
+        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+           Share   
+        </a> <a class="btn" href="#" onclick="downloadMeme(this)">Download</a>
+        <a class="btn" href="#" onclick="saveMemeToStorage()">Save</a>
+        `
+    }
+
+    doUploadImg(elForm, onSuccess);
+}
+
+function doUploadImg(elForm, onSuccess) {
+    var formData = new FormData(elForm);
+    fetch('http://ca-upload.com/here/upload.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(function(res) {
+            return res.text()
+        })
+        .then(onSuccess)
+        .catch(function(err) {
+            console.error(err)
+        })
+}
+
+
+function openMemes() {
+    document.body.classList.add('meme-gallary');
+    renderMemes()
 }
