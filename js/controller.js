@@ -11,8 +11,9 @@ function onInit() {
     // gElCanvas.width = 450;
     // gElCanvas.height = 450;
     renderImgs()
-    createKeywordsMap()
     saveToStorage('popularSearches', gPopularSearches);
+    createKeywordsMap()
+    createPopularSearches()
     renderSorters()
 }
 
@@ -33,6 +34,7 @@ function onOpenGenerator(imgId) {
     updateGmeme(currMeme)
     resizeCanvas()
     renderImg(currImg.id)
+    renderCanvas()
 }
 
 function renderCanvas(height = 0) {
@@ -271,10 +273,10 @@ function uploadImg(elForm, ev) {
     function onSuccess(uploadedImgUrl) {
         uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
         document.querySelector('.share-container').innerHTML = `
-        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+        <a data-trans="share" class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
            Share   
-        </a> <a class="btn" href="#" onclick="downloadMeme(this)">Download</a>
-        <a class="btn" href="#" onclick="saveMemeToStorage()">Save</a>
+        </a> <a data-trans="download" class="btn" href="#" onclick="downloadMeme(this)">Download</a>
+        <a data-trans="save" class="btn" href="#" onclick="saveMemeToStorage()">Save</a>
         `
     }
 
@@ -302,17 +304,18 @@ function openMemes() {
     renderMemes()
 }
 
-function searchKeyWord() {
-    var usersKey = document.getElementById('searcher').value;
+function searchKeyWord(usersKey) {
     var KeywordsMap = getKeywordsMap()
+    console.log(KeywordsMap[usersKey])
     if (!KeywordsMap[usersKey]) {
         strHtml = 'No images found! Try differnt keyword.'
     } else {
         KeywordsMap[usersKey]++;
+        saveToStorage('keyWordsMap', gKeywordsMap)
         if (KeywordsMap[usersKey] >= 3) {
             addToPopularSearches(usersKey, KeywordsMap[usersKey]);
-            renderSorters(usersKey)
-
+            saveToStorage('popularSearches', gPopularSearches)
+            renderSorters()
         }
         var strHtml = ''
         var imgs = getImgs()
@@ -327,35 +330,36 @@ function searchKeyWord() {
     }
     var elContainer = document.querySelector('.img-grid')
     elContainer.innerHTML = strHtml;
-    renderSorters(usersKey)
+    renderSorters()
 }
 
-function search(ev) {
-    if (ev.keyCode == 13) searchKeyWord();
+function search(ev, value) {
+    if (ev.keyCode == 13) searchKeyWord(value);
 }
 
-function renderSorters(key) {
-    var sorters = loadFromStorage('popularSearches')
+function renderSorters() {
+    var sorters = Object.keys(getPopularSearches())
+    var keyMap = getKeywordsMap()
     var strHtml = ''
     var elSorters = document.querySelector('.sorters')
     sorters.map(function(sorter) {
-        var objKey = JSON.stringify(Object.keys(sorter))
-            // if (objKey === key) {
-            //     strHtml += `<button class="sorter" style="font-size: 10+${sorter.objKey}px" onclick="searchKeyWord(this.value)">${sorter}</button>`
-            // }
-        strHtml += `<button class="sorter" style="font-size: 10+${sorter[objKey]}px" onclick="searchKeyWord(this.value)">${key}</button>`
+        // console.log(keyMap[sorter])
+        strHtml += `<a class="sorter" style="font-size: ${15+keyMap[sorter]}px;" onclick="searchKeyWord('${sorter}')">${sorter}</a>`
     })
     elSorters.innerHTML = strHtml;
+}
 
+function onSetLang(lang) {
+    setLang(lang);
+    if (lang === 'he') {
+        var divs = document.getElementsByTagName("div");
+        for (var i = 0, all = divs.length; i < all; i++) {
+            divs[i].classList.add('rtl');
+        }
+        var img = document.querySelector('.about-me-img')
+        img.classList.add('rtl')
+        document.body.classList.add('rtl');
 
-    // var keywordsMap = getKeywordsMap()
-    // var keywords = Object.keys(keywordsMap)
-    // var elSorters = document.querySelector('.sorters')
-    // var strHtml = ''
-    // keywords.map(function(key) {
-    //     if (keywordsMap[key] > 3) {
-    //         strHtml += `<button class="sorter" onclick="searchKeyWord(this.value)">${key}</button>`
-    //     }
-    // })
-    // elSorters.innerHTML = strHtml;
+    } else document.body.classList.remove('rtl');
+    doTrans();
 }

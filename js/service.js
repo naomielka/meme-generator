@@ -32,33 +32,57 @@ var gKeywords = [
     ['buzz', 'toy story', ],
 ]
 
-var gPopularSearches = []
+var gPopularSearches = {}
 var gKeywordsMap = {}
 
+function getPopularSearches() {
+    return gPopularSearches;
+}
+
+function createPopularSearches() {
+    var keyMap = Object.keys(gKeywordsMap);
+    keyMap.map(function(key) {
+        if (gKeywordsMap[key] >= 3) {
+            console.log(key)
+            gPopularSearches[key] = gKeywordsMap[key]
+        }
+    })
+
+    // if (localStorage.getItem('popularSearches') === 'undefined') {
+    //     gPopularSearches = { 'happy': 3, 'angry': 3, 'funny': 3, 'love': 3 }
+    //     saveToStorage('popularSearches', gPopularSearches)
+    // } else {
+    //     gPopularSearches = loadFromStorage('popularSearches');
+    // }
+}
+
 function createKeywordsMap() {
-    gKeywords.map(function(array) {
-        array.map(function(word) {
-            if (!gKeywordsMap[word]) {
-                gKeywordsMap[word] = 1;
+    if (loadFromStorage('keyWordsMap')) {
+        gKeywordsMap = loadFromStorage('keyWordsMap')
+    } else {
+        gKeywords.map(function(array) {
+            array.map(function(word) {
+                if (!gKeywordsMap[word]) {
+                    gKeywordsMap[word] = 1;
+                }
+            })
+        })
+        var popularKeys = Object.keys(getPopularSearches);
+        popularKeys.map(function(key) {
+            console.log(gKeywordsMap[key])
+            if (gKeywordsMap[key]) {
+                gKeywordsMap[key] = gPopularSearches[key]
             }
         })
-    })
+        saveToStorage('keyWordsMap', gKeywordsMap)
+    }
 }
 
 function addToPopularSearches(search, value) {
-    var found = false;
-    var obj = {
-        [search]: value
-    }
-    for (var i = 0; i < gPopularSearches.length; i++) {
-        if (JSON.stringify(Object.keys(gPopularSearches[i])) === search) {
-            gPopularSearches[i] == obj
-            found = true
-        }
-    }
-    if (!found) {
-        gPopularSearches.push(obj);
-    }
+
+    var popularSearches = getPopularSearches()
+    popularSearches[search] = value;
+
     saveToStorage('popularSearches', gPopularSearches)
 }
 
@@ -106,15 +130,15 @@ function createCurrMeme(currImg) {
     var meme = {
         selectedImgId: currImg.id,
         selectedLineIdx: 0,
-        lines: [{ txt: '', size: 40, font: 'impact', align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true },
-            { txt: '', size: 40, font: 'impact', align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true }
+        lines: [{ txt: 'insert your text', size: 40, font: 'impact', align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true },
+            { txt: 'insert your text', size: 40, font: 'impact', align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true }
         ]
     }
     return meme;
 }
 
 function getNewLine() {
-    return { txt: '', size: 40, font: 'impact', align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true }
+    return { txt: 'insert your text', size: 40, font: 'impact', align: 'center', color: 'white', outline: 'black', delete: false, y: 50, isNew: true }
 }
 
 function saveMeme(data) {
