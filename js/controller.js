@@ -107,10 +107,10 @@ function drawText(text, line, idx = gLine, height = 0) {
         else line.y = gElCanvas.width / 2;
         line.isNew = false;
     }
-    if (height !== 0) line.y += height
-    if (line.align === 'center') var x = gElCanvas.width / 2
-    else if (line.align === 'right') x = gElCanvas.width - 5
-    else x = 5
+    if (height !== 0) line.y += height;
+    if (line.align === 'center') var x = gElCanvas.width / 2;
+    else if (line.align === 'right') x = gElCanvas.width - 5;
+    else x = 5;
     gCtx.lineWidth = '2';
     gCtx.font = `${line.size}px ${line.font}`;
     gCtx.textAlign = `${line.align}`;
@@ -229,6 +229,8 @@ function backToGallary() {
     renderImgs()
         // var el = document.getElementById(id);
         // el.scrollIntoView(true);
+
+    //anchor
 }
 
 function resizeCanvas() {
@@ -257,9 +259,7 @@ function saveMemeToStorage() {
 function renderMemes() {
     var memes = loadFromStorage('memes');
     var strHtml = ''
-    memes.map(function(meme) {
-        strHtml += `<img class="meme" src="${meme}">`
-    })
+    memes.map((meme) => strHtml += `<img class="meme" src="${meme}">`)
     var elContainer = document.querySelector('.memes')
     elContainer.innerHTML = strHtml;
 }
@@ -279,7 +279,6 @@ function uploadImg(elForm, ev) {
         <a data-trans="save" class="btn" href="#" onclick="saveMemeToStorage()">Save</a>
         `
     }
-
     doUploadImg(elForm, onSuccess);
 }
 
